@@ -1,55 +1,44 @@
 let MatValues=[
     {
-            "Uname":"Maddy@434",
-            "Fname":"Manojkumar",
-            "Gender":"Male",
-            "Qname":"Bachelor of computer applications",
-            "Ltd":"21-25",
-            "Cno":"9789355980",
-            "Mail":"manojgeetha12.10@gmail.com",
-            "Lan":["Malayalam,Tamil"]
+            "matUname":"Maddy@434",
+            "matFname":"Manojkumar",
+            "matGen":"Male",
+            "matQname":"Bachelor of computer applications",
+            "matAgeLtd":"21",
+            "matCno":"9789355980",
+            "matMail":"manojgeetha12.10@gmail.com",
+            "matLan":["Malayalam,Tamil"]
     },
      {
-            "Uname":"Pavi@449",
-            "Fname":"Pavithra M",
-            "Gender":"female",
-            "Qname":"Bachelor of Maths",
-            "Ltd":"24-28",
-            "Cno":"9500655980",
-            "Mail":"Pavimano.10@gmail.com",
-            "Lan":["Malayalam,Tamil,telgu"]
+            "matUname":"Pavi@449",
+            "matFname":"Pavithra M",
+            "matGen":"female",
+            "matQname":"Bachelor of Maths",
+            "matLtd":"23",
+            "matCno":"9500655980",
+            "matMail":"Pavimano.10@gmail.com",
+            "matLan":["Malayalam,Tamil,telgu"]
     },
     {
-        "Uname":"Aarthi@1057",
-        "Fname":"Aarthi Ayyanar",
-        "Gender":"female",
-        "Qname":"Bachelor of dental",
-        "Ltd":"26-30",
-        "Cno":"8903647393",
-        "Mail":"Aarthi046@gmail.com",
-        "Lan":["Malayalam,Tamil"]
+        "matUname":"Aarthi@1057",
+        "matFname":"Aarthi Ayyanar",
+        "matGen":"female",
+        "matQname":"Bachelor of dental",
+        "matAgeLtd":"25",
+        "matCno":"8903647393",
+        "matMail":"Aarthi046@gmail.com",
+        "matLan":["Malayalam,Tamil"]
 },
 {
-    "Uname":"Annamalai Rock",
-    "Fname":"AnnaMalai",
-    "Gender":"Male",
-    "Qname":"Bachelor of Commerce",
-    "Ltd":"21-25",
-    "Cno":"9878654356",
-    "Mail":"AnnamalaiMass10@gmail.com",
-    "Lan":["Malayalam,Tamil,Kannada"]
-},
-{
-    "Uname":"Uma@474",
-    "Fname":"Umadevi",
-    "Gender":"Female",
-    "Qname":"Bachelor of Engineering(CSE)",
-    "Ltd":"25-30",
-    "Cno":"7089335980",
-    "Mail":"uma1210@gmail.com",
-    "Lan":["telugu,Tamil"]
-}
-]
+    "matUname":"Uma@474",
+    "matFname":"Umadevi",
+    "matGen":"Female",
+    "matQname":"Bachelor of Engineering(CSE)",
+    "matAgeLtd":"22",
+    "matCno":"7089335980",
+    "matMail":"uma1210@gmail.com",
+    "matLan":["telugu,Tamil"]
+}]
 
 export const create=(ele)=>{
     MatValues.push(ele)
@@ -64,7 +53,7 @@ export const read1=(index)=>
 
 export const fetchExact01=(name)=>{
     const tmp=MatValues.filter((element)=>{
-        return element.Uname===name
+        return element.matUname===name
     })
     return tmp[0]
 }

@@ -1,27 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { alter } from "./ArrayValues";
 import './App.css'
+import { updateOnes } from "./axiosConnect";
 
 export const Update01=(change)=>
 {
 
-    const[pos]=useState(change.who)
+    //const[pos]=useState(change.who)
 
     const[sign,setsign]=useState(
         {
-            "Uname":change.mention.Uname,
-            "Fname":change.mention.Fname,
-            "Gender":change.mention.Gender,
-            "Qname":change.mention.Qname,
-            "Ltd":change.mention.Ltd,
-            "Cno":change.mention.Cno,
-            "Mail":change.mention.Mail,
-            "Lan":change.mention.lan
+            "matId":change.mention.matId,
+            "matUname":change.mention.matUname,
+            "matFname":change.mention.matFname,
+            "matGen":change.mention.matGen,
+            "matQname":change.mention.matQname,
+            "matAgeLtd":change.mention.matAgeLtd,
+            "matCno":change.mention.matCno,
+            "matMail":change.mention.matMail,
+            "matLan":change.mention.matLan
         })
-        const reg=()=>
+        useEffect (()=>{
+            let wind=""
+            sign.matLan.map((content)=>{
+                wind+=content+","
+            })
+            sign.matLan=wind
+        },[])
+
+        const reg=async()=>
         {
-            alter(pos,sign)
-            alert( "update successfully")
+            sign.matLan=sign.matLan.split(",")
+            const t=await updateOnes(sign)
+            alert(t.data)
+
+            // alter(pos,sign)
+            // alert( "update successfully")
             // alert("Enrolled Successfully "+JSON.stringify(sign))
             //create(sign)
         }
@@ -82,8 +96,8 @@ export const Update01=(change)=>
                             <label>Username</label>
                             <input type="text" 
                             onChange={tracky}
-                            value={sign.Uname}
-                            name="Uname" 
+                            value={sign.matUname}
+                            name="matUname" 
                             placeholder="Enter the username" 
                             className="form-control"/>
                         </div>
@@ -91,16 +105,16 @@ export const Update01=(change)=>
                             <label>Fullname</label>
                             <input type="text" 
                             onChange={tracky}
-                            value={sign.Fname}
-                            name="Fname"
+                            value={sign.matFname}
+                            name="matFname"
                             placeholder="Enter the Fullname" 
                             className="form-control"/>
                         </div>
                         <div>
                             <label className="mt-2">Gender</label>
                             <textarea className="form-control"
-                                   name="Gender"
-                                   value={sign.Gender}
+                                   name="matGen"
+                                   value={sign.matGen}
                                    onChange={tracky}>
                         </textarea>
  
@@ -109,26 +123,26 @@ export const Update01=(change)=>
                             <label>Qualification</label>
                             <input type="text"
                             onChange={tracky}
-                            value={sign.Qname}
-                             name="Qname"
+                            value={sign.matQname}
+                             name="matQname"
                              placeholder="Enter Your qualification" 
                              className="form-control"/>
                         </div>
                         <div className="form-group mt-2">
-                            <label>Looking for selected age</label>
-                            <select className="form-select mt-" name="Ltd" onChange={tracky}value={sign.Ltd}>
-                                <option selected hidden>Age limit</option>
-                                <option>21-25</option>
-                                <option>26-30</option>
-                                <option>31-40</option>
-                            </select>
+                        <label>Looking for selected age</label>
+                            <input type="number"
+                            onChange={tracky} 
+                            value={sign.matAgeLtd}
+                            name="matAgeLtd"
+                            placeholder="Enter the your Expected Age" 
+                            className="form-control"/>
                         </div>
                         <div className="form-group mt-2">
                             <label>Contact no</label>
                             <input type="tel"
                             onChange={tracky} 
-                            value={sign.Cno}
-                            name="Cno"
+                            value={sign.matCno}
+                            name="matCno"
                             placeholder="Enter the number" 
                             className="form-control"/>
                         </div>
@@ -136,24 +150,23 @@ export const Update01=(change)=>
                             <label>Mail-id</label>
                             <input type="email" 
                             onChange={tracky}
-                            value={sign.Mail}
-                            name="Mail"
+                            value={sign.matMail}
+                            name="matMail"
                             placeholder="Enter your email-id" 
                             className="form-control"/>
                         </div>
                         <div className="form-group mt-2">
                             <label>Languages</label>
                             <textarea className="form-control"
-                                   name="Lan"
-                                   value={sign.Lan}
+                                   name="matLan"
+                                   value={sign.matLan}
                                    onChange={tracky}>
                         </textarea>
                             </div>
                         <div className="row justify-content-around mt-4">
                             <button onClick={reg} className="btn btn-outline-success col-4">Update</button>
                             <button onClick={can} className="btn btn-outline-danger col-4">Cancel</button>
-                        </div>
-                        
+                        </div>  
                     </div>
                 </div>
             </div>

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css"
-import { del, fetchExact01, list } from "./ArrayValues";
+//import { del, fetchExact01, list } from "./ArrayValues";
 import { MatDetails } from "./MatrimonyForm";
 import {  Padi01 } from "./Read";
 import {   Update01 } from "./Update";
+import {  erase, gathers } from "./axiosConnect";
+//import { del } from "./ArrayValues";
 
 export const Main=()=>
 {
@@ -13,24 +15,34 @@ export const Main=()=>
     const[readview,setreadview]=useState(false)
     const[updateview,setupdateview]=useState(false)
     const[pos,setPos]=useState(0)
-    const[obj,setObj]=useState({})
+    const[obj,setObj]=useState({
 
-    const hello=()=>{
-        settmpArray(list())
+    })
+    const hello=async()=>{
+        const t=await gathers();
+        settmpArray(t.data)
     }
+
+    const toErase=async(value)=>{
+        const hey=await erase(value)
+        alert(hey.data)
+        window.location.assign("/")
+    }
+
     useEffect(()=>
     {
         hello()
     },[])
+
     return(
-        <>           
-                                                                    
-{(tempArray)?
+        <>                                                                   
+            {(tempArray)?
                 <>  
                     <MatDetails/>
                     <button className="btn btn-outline-secondary" onClick={
                         ()=>{
                             settempArray(false)
+                            window.location.assign("/")
                         }
                     }>
                         <i class="bi bi-skip-backward-btn-fill"></i>Back
@@ -39,10 +51,12 @@ export const Main=()=>
                 :
                 (updateview)?
                 <>
-                    <Update01 who={pos} mention={obj}/>
+                    <Update01 mention={obj}/>
                     <button className="btn btn-outline-secondary" onClick={
                         ()=>{
                             setupdateview(false)
+                            window.location.assign("/")
+
                         }
                     }>
                         <i className="bi bi-skip-backward-btn-fill"></i> Back
@@ -62,7 +76,6 @@ export const Main=()=>
                 </>
                 :
                 <>
-        
                     <button className="btn btn-outline-success mb-3 mt-5 float-start"
                         onClick={()=>{
                             settempArray(true)
@@ -92,41 +105,40 @@ export const Main=()=>
                                 </thead>
                                 <tbody>
                                     {tmpArray.map((elems,index)=>(
-                                        <tr className="">
+                                        <tr>
                                              <td>
                                                 <button class="btn btn-outline-info" onClick={()=>{
                                                     setreadview(true)
-                                                    setPos(index)
-                                                }}>
+                                                    setPos(elems.matId) 
+                                                    }}>
                                                    READ 
                                                 </button>
-                                                {elems.Uname}
+                                                {elems.matUname}
                                             </td>
-                                            <td className="text-center"> {elems.Fname}</td>
-                                            <td className="text-center"> {elems.Gender}</td>
-                                            <td className="text-center"> {elems.Qname}</td>
-                                            <td className="text-center"> {elems.Ltd}</td>
-                                            <td className="text-center"> {elems.Cno}</td>
-                                            <td className="text-center"> {elems.Mail}</td>
-                                            <td className="text-center"> {elems.Lan}</td>
+                                            <td className="text-center"> {elems.matFname}</td>
+                                            <td className="text-center"> {elems.matGen}</td>
+                                            <td className="text-center"> {elems.matQname}</td>
+                                            <td className="text-center"> {elems.matAgeLtd}</td>
+                                            <td className="text-center"> {elems.matCno}</td>
+                                            <td className="text-center"> {elems.matMail}</td>
+                                            <td className="text-center"> {elems.matLan}</td>
                                             
                                             <td>
                                                 <button className="btn btn-outline-warning rounded-circle"
                                                 onClick={()=>{
                                                     setupdateview(true)
-                                                    setPos(index)
-                                                    const y=fetchExact01(elems.Uname)
-                                                    setObj(y)
+                                                    //setPos(index)
+                                                    //const y=fetchExact01(elems.matUname)
+                                                    setObj(elems)
                                                 }}>
                                                     Edit
                                                 </button>
                                             </td>
                                             <td>
                                                 <button className="btn btn-outline-danger "
-                                                onClick={()=>
-                                                    {
-                                                        
-                                                        settmpArray(del(index))
+                                                onClick={()=>{
+                                                     toErase(elems.matId)
+                                                       // settmpArray(del(index))
                                                     }}>
                                                     Delete 
                                                 </button>

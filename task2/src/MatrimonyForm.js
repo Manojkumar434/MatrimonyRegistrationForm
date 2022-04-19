@@ -1,18 +1,17 @@
 import React, { useState } from "react";
+import { joins } from "./axiosConnect";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css"
 import './App.css'
-import { create } from "./ArrayValues";
+// import { create } from "./ArrayValues";
 
-export const MatDetails=()=>
-{
-    const[sign,setsign]=useState(
-        {
+export const MatDetails=()=>{
+    const[sign,setsign]=useState({
             "matUname":"",
             "matFname":"",
             "matGen":"",
             "matQname":"",
-            "matAge":"",
-            "matCno":"",
+            "matAgeLtd":0,
+            "matCno":0,
             "matMail":"",
             "matLan":new Array()
         })
@@ -24,27 +23,24 @@ export const MatDetails=()=>
         {
             //extraction
             const{name,value}=maddy.target
-
-            
             setsign(
                 (old)=>{
                 return{
                     ...old,
                     [name]:value,
-                    ['matGen']:document.getElementById("gen").value
                     }
                 }
-            )
-
+                )
         }
 
-    const reg=()=>
-    {
-         alert("Start a new life-Check the details your click to back button" )
-        create(sign)
+    const reg=async()=>{
+        //   alert("Start a new life-Check the details your click to back button" )
+        //  create(sign) 
+        const holi=await joins(sign)
+        alert(holi.data)
+        
     }
-    const can=()=>
-    {
+    const can=()=>{
         alert("Better luck next time")
     }
     const Imgsrc=
@@ -116,12 +112,12 @@ export const MatDetails=()=>
                     </div>
                     <div className="form-group mt-2">
                         <label>Looking for selected age</label>
-                        <select className="form-select mt-" name="matAge" onChange={tracky}value={sign.matAge}>
-                            <option selected hidden>Age limit</option>
-                            <option>21-25</option>
-                            <option>26-30</option>
-                            <option>31-40</option>
-                        </select>
+                        <input type="number"
+                        onChange={tracky} 
+                        value={sign.matAgeLtd}
+                        name="matAgeLtd"
+                        placeholder="Enter the your Expected Age" 
+                        className="form-control"/>
                     </div>
                     <div className="form-group mt-2">
                         <label>Contact no</label>
