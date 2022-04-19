@@ -12,19 +12,16 @@ export const gathers=async()=>{
     return yets;
 }
 
-// export const reachOnes=async(position)=>{
-//     const t = await axios.get(`${links}/gets/${position}`)
-//     return t;
-// }
-
 export const updateOnes=async(obj)=>{
     const hai=await axios.put(`${links}/update`,obj)
     return hai;
 }
+
 export const reachone=async(obj)=>{
     const write=await axios.get(`${links}/getting/${obj}`)
     return write;
 }
+
 export const erase=async(pk)=>{
     const t = await axios.delete(`${links}/del/${pk}`)
     return t;
